@@ -6,7 +6,6 @@
  */
 require('babel/browser-polyfill');
 
-// your project module...
 import PositionSticky from './position-sticky';
 
 export default function (selector) {
