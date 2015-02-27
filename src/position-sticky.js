@@ -46,14 +46,13 @@ class PositionSticky {
   
   onResize(e) {
     if (this.clone) {
-      // re-calculate offset
       this.offset = {
         top: this.element.offsetTop,
         left: this.element.offsetLeft
       };
       
-      this.clone.style.left = this.offset.left;
-      this.clone.style.width = this.size.width;
+      this.clone.style.left = this.offset.left + 'px';
+      this.clone.style.width = this.size.width + 'px';
     }
   }
 }
