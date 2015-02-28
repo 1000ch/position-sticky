@@ -1,8 +1,7 @@
 {
   "name": "position-sticky",
   "version": "0.1.0",
-  "description": "",
-  "main": "dist/position-sticky.js",
+  "description": "Emulation of position:sticky using JavaScript",
   "directories": {
     "test": "test"
   },
@@ -17,13 +16,12 @@
     "type": "git",
     "url": "https://github.com/1000ch/position-sticky"
   },
-  "author": "ahomu",
+  "author": "1000ch",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/1000ch/position-sticky/issues"
   },
   "homepage": "https://github.com/1000ch/position-sticky",
-  "dependencies": {},
   "devDependencies": {
     "babel": "^4.0.1",
     "babelify": "^5.0.3",

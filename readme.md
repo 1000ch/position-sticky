@@ -6,10 +6,10 @@ Load `position-sticky.min.js` and call `PositionSticky()`.
 
 ```html
 <script src="dist/position-sticky.js"></script>
-<script>PositionSticky('#sticky');</script>
+<script>PositionSticky(document.querySelector('.sticky'));</script>
 ```
 
-Top attribute for `#sticky` should be set.
+Top attribute for `.sticky` should be set.
 
 ```css
 #sticky {
