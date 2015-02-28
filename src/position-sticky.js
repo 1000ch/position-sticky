@@ -1,86 +1,106 @@
 'use strict';
 
 import Rectangle from './rectangle';
+import util from './util';
 
 export default class PositionSticky {
   
-  constructor(selector) {
+  constructor(element) {
     
-    let element = document.querySelector(selector);
-    
-    this.target = {
-      element: element,
-      rectangle: new Rectangle(element)
-    };
-
-    this.container = {
-      element: element.parentNode,
-      rectangle: new Rectangle(element.parentNode)
-    };
-
+    this.sticky = element;
+    this.parent = element.parentNode;
     this.clone = null;
-    this.top = this.target.element.style.top.replace('px', '') - 0;
+    this.rectangle = new WeakMap();
+
+    this.rectangle.set(this.sticky, new Rectangle(this.sticky));
+    this.rectangle.set(this.parent, new Rectangle(this.parent));
+
+    this.top    = this.sticky.style.top.replace('px', '') - 0;
+    this.bottom = this.sticky.style.bottom.replace('px', '') - 0;
 
     window.addEventListener('scroll', this.onScroll.bind(this));
     window.addEventListener('resize', this.onResize.bind(this));
   }
   
   onScroll(e) {
+    
+    let sticky = this.rectangle.get(this.sticky);
+    let parent = this.rectangle.get(this.parent);
 
-    if (window.scrollY + this.target.rectangle.height > this.container.rectangle.bottom) {
-
-      if (this.clone) {
-
-        document.body.removeChild(this.clone);
-        this.clone = null;
-
-        this.container.element.style.position = 'relative';
-        this.target.element.style.position = 'absolute';
-        this.target.element.style.top = '';
-        this.target.element.style.bottom = '10px';
-        this.target.element.style.visibility = 'visible';
-      }
-
-    } else if (window.scrollY >= this.target.rectangle.top - this.top) {
+    if (window.scrollY + sticky.height + this.bottom > parent.bottom) {
 
       if (!this.clone) {
-
-        this.clone = this.target.element.cloneNode(true);
-        this.clone.style.position = 'fixed';
-        this.clone.style.top = this.top + 'px';
-        this.clone.style.left = this.target.rectangle.left + 'px';
-        this.clone.style.width = this.target.rectangle.width + 'px';
-        document.body.appendChild(this.clone);
-
-        this.target.element.style.visibility = 'hidden';
+        return;
       }
+
+      util.setStyle(this.parent, {
+        position: 'relative'
+      });
+      
+      util.setStyle(this.sticky, {
+        position: 'absolute',
+        top: '',
+        bottom: '0px',
+        visibility: 'visible'
+      });
+
+      document.body.removeChild(this.clone);
+      this.clone = null;
+
+    } else if (window.scrollY >= sticky.top - this.top) {
+
+      if (this.clone) {
+        return;
+      }
+
+      this.clone = this.sticky.cloneNode(true);
+      
+      util.setStyle(this.clone, {
+        position: 'fixed',
+        top: this.top + 'px',
+        left: sticky.left + 'px',
+        width: sticky.width + 'px'
+      });
+
+      util.setStyle(this.sticky, {
+        visibility: 'hidden'
+      });
+
+      document.body.appendChild(this.clone);
 
     } else {
       
-      if (this.clone) {
-
-        document.body.removeChild(this.clone);
-        this.clone = null;
-
-        this.container.element.style.position = '';
-        this.target.element.style.position = '';
-        this.target.element.style.bottom = '';
-        this.target.element.style.visibility = 'visible';
+      if (!this.clone) {
+        return;
       }
 
+      util.setStyle(this.parent, {
+        position: ''
+      });
+
+      util.setStyle(this.sticky, {
+        position: '',
+        bottom: '',
+        visibility: 'visible'
+      });
+
+      document.body.removeChild(this.clone);
+      this.clone = null;
     }
   }
   
-  onResize(e) {
-    if (this.clone) {
+  onResize(e) { 
 
-      this.offset = {
-        top: this.target.element.offsetTop,
-        left: this.target.element.offsetLeft
-      };
-      
-      this.clone.style.left = this.target.rectangle.left + 'px';
-      this.clone.style.width = this.target.rectangle.width + 'px';
+    if (!this.clone) {
+      return;
     }
+
+    let sticky = this.rectangle[this.sticky] = new Rectangle(this.sticky);
+    let parent = this.rectangle[this.parent] = new Rectangle(this.parent);
+
+    util.setStyle(this.clone, {
+      left: sticky.left + 'px',
+      width: sticky.width + 'px'
+    });
   }
 }
