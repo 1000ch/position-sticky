@@ -1,5 +1,7 @@
 # position-sticky
 
+Emulation of `position: sticky` using JavaScript.
+
 ## Usage
 
 Load `position-sticky.min.js` and call `PositionSticky()`.
