@@ -49,12 +49,11 @@ export default class PositionSticky {
 
     } else if (window.scrollY >= sticky.top - this.top) {
 
-      if (this.clone) {
-        return;
+      if (!this.clone) {
+        this.clone = this.sticky.cloneNode(true);
+        document.body.appendChild(this.clone);
       }
 
-      this.clone = this.sticky.cloneNode(true);
-      
       util.setStyle(this.clone, {
         position: 'fixed',
         top: this.top + 'px',
@@ -65,8 +64,6 @@ export default class PositionSticky {
       util.setStyle(this.sticky, {
         visibility: 'hidden'
       });
-
-      document.body.appendChild(this.clone);
 
     } else {
       
@@ -91,16 +88,9 @@ export default class PositionSticky {
   
   onResize(e) { 
 
-    if (!this.clone) {
-      return;
-    }
+    this.rectangle.set(this.sticky, new Rectangle(this.sticky));
+    this.rectangle.set(this.parent, new Rectangle(this.parent));
 
-    let sticky = this.rectangle[this.sticky] = new Rectangle(this.sticky);
-    let parent = this.rectangle[this.parent] = new Rectangle(this.parent);
-
-    util.setStyle(this.clone, {
-      left: sticky.left + 'px',
-      width: sticky.width + 'px'
-    });
+    this.onScroll.call(this);
   }
 }
