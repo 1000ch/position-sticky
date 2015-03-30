@@ -15,7 +15,7 @@ export default class PositionSticky {
     this.rectangle.set(this.parent, new Rectangle(this.parent));
 
     this.diff = {
-      top: this.parent.offsetTop - this.parent.offsetTop,
+      top: this.sticky.offsetTop - this.parent.offsetTop,
       left: this.sticky.offsetLeft - this.parent.offsetLeft
     };
 
