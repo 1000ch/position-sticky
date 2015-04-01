@@ -36,7 +36,7 @@ export default class PositionSticky {
     let sticky = this.rectangle.get(this.sticky);
     let parent = this.rectangle.get(this.parent);
 
-    if (window.scrollY + sticky.height + this.bottom > parent.bottom) {
+    if (window.scrollY + sticky.height + this.bottom > parent.bottom - this.diff.top) {
 
       util.setStyle(this.parent, {
         position: 'relative'
@@ -46,10 +46,10 @@ export default class PositionSticky {
         position: 'absolute',
         top: '',
         left: '',
-        bottom: '0px'
+        bottom: '0'
       });
 
-    } else if (window.scrollY >= sticky.top - this.top) {
+    } else if (window.scrollY >= sticky.top - this.top - this.diff.top) {
 
       util.setStyle(this.sticky, {
         position: 'fixed',
