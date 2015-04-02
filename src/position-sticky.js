@@ -19,17 +19,13 @@ export default class PositionSticky {
       left: this.sticky.offsetLeft - this.parent.offsetLeft
     };
 
-    this.originalStyle = {
-      sticky: {
-        position: element.style.position
-      },
-      parent: {
-        position: element.parentNode.style.position
-      }
+    this.original = {
+      position: element.style.position,
+      top: element.style.top.replace('px', '') - 0,
+      bottom: element.style.bottom.replace('px', '') - 0,
+      width: element.style.width,
+      height: element.style.height
     };
-
-    this.top    = this.sticky.style.top.replace('px', '') - 0;
-    this.bottom = this.sticky.style.bottom.replace('px', '') - 0;
 
     window.addEventListener('scroll', this.onScroll.bind(this));
     window.addEventListener('resize', this.onResize.bind(this));
@@ -40,36 +36,29 @@ export default class PositionSticky {
     let sticky = this.rectangle.get(this.sticky);
     let parent = this.rectangle.get(this.parent);
 
-    if (window.scrollY + sticky.height + this.bottom > parent.bottom - this.diff.top) {
-
-      util.setStyle(this.parent, {
-        position: 'relative'
-      });
+    if (window.scrollY + sticky.height - this.original.bottom > parent.bottom - this.diff.top) {
 
       util.setStyle(this.sticky, {
         position: 'absolute',
-        top: '',
-        left: '',
-        bottom: '0'
+        top: `${parent.bottom - sticky.height - this.diff.top}px`,
+        left: 'auto'
       });
 
-    } else if (window.scrollY >= sticky.top - this.top - this.diff.top) {
+    } else if (window.scrollY >= parent.top - this.original.top) {
 
       util.setStyle(this.sticky, {
         position: 'fixed',
-        top: this.top + this.diff.top + 'px',
-        left: parent.left + this.diff.left + 'px',
-        width: sticky.width + 'px'
+        top: `${this.original.top}px`,
+        left: `${parent.left + this.diff.left}px`,
+        width: `${sticky.width}px`
       });
 
     } else {
 
-      util.setStyle(this.parent, {
-        position: this.originalStyle.parent.position
-      });
-
       util.setStyle(this.sticky, {
-        position: this.originalStyle.sticky.position
+        position: this.original.position,
+        width: this.original.width,
+        height: this.original.height
       });
     }
   }
