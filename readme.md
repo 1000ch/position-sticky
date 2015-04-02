@@ -11,14 +11,6 @@ Load `position-sticky.min.js` and call `PositionSticky()`.
 <script>PositionSticky(document.querySelector('.sticky'));</script>
 ```
 
-Top attribute for `.sticky` should be set.
-
-```css
-#sticky {
-  top: 10px;
-}
-```
-
 ## License
 
 MIT: http://1000ch.mit-license.org/
