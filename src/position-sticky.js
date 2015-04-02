@@ -19,9 +19,13 @@ export default class PositionSticky {
       left: this.sticky.offsetLeft - this.parent.offsetLeft
     };
 
-    this.clone = {
-      sticky: element.cloneNode(true),
-      parent: element.parentNode.cloneNode(true)
+    this.originalStyle = {
+      sticky: {
+        position: element.style.position
+      },
+      parent: {
+        position: element.parentNode.style.position
+      }
     };
 
     this.top    = this.sticky.style.top.replace('px', '') - 0;
@@ -61,12 +65,11 @@ export default class PositionSticky {
     } else {
 
       util.setStyle(this.parent, {
-        position: this.clone.parent.style.position
+        position: this.originalStyle.parent.position
       });
 
       util.setStyle(this.sticky, {
-        position: this.clone.sticky.style.position,
-        bottom: this.clone.sticky.style.bottom
+        position: this.originalStyle.sticky.position
       });
     }
   }
