@@ -4,7 +4,7 @@
   "authors": [
     "1000ch <shogo.sensui@gmail.com>"
   ],
-  "description": "Emulation of position:sticky using JavaScript",
+  "description": "Emulation of position:sticky; using JavaScript",
   "main": "dist/position-sticky.min.js",
   "license": "MIT",
   "ignore": [
