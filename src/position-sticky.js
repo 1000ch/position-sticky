@@ -9,10 +9,6 @@ export default class PositionSticky {
 
     this.sticky = element;
     this.parent = element.parentNode;
-    this.rectangle = new WeakMap();
-
-    this.rectangle.set(this.sticky, new Rectangle(this.sticky));
-    this.rectangle.set(this.parent, new Rectangle(this.parent));
 
     this.diff = {
       top: this.sticky.offsetTop - this.parent.offsetTop,
@@ -33,8 +29,8 @@ export default class PositionSticky {
 
   onScroll(e) {
 
-    let sticky = this.rectangle.get(this.sticky);
-    let parent = this.rectangle.get(this.parent);
+    let sticky = new Rectangle(this.sticky);
+    let parent = new Rectangle(this.parent);
 
     if (window.scrollY + sticky.height - this.original.bottom > parent.bottom - this.diff.top) {
 
@@ -64,10 +60,6 @@ export default class PositionSticky {
   }
 
   onResize(e) {
-
-    this.rectangle.set(this.sticky, new Rectangle(this.sticky));
-    this.rectangle.set(this.parent, new Rectangle(this.parent));
-
     this.onScroll.call(this);
   }
 }
