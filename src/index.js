@@ -12,13 +12,15 @@ export default function (element) {
   return new PositionSticky(element);
 }
 
-let StickyElementPrototype = Object.create(HTMLElement.prototype);
+if (document.registerElement) {
+  let StickyElementPrototype = Object.create(HTMLElement.prototype);
 
-StickyElementPrototype.attachedCallback = function () {
-  new PositionSticky(this);
-};
+  StickyElementPrototype.attachedCallback = function () {
+    new PositionSticky(this);
+  };
 
-document.registerElement('position-sticky', {
-  prototype: StickyElementPrototype,
-  extends: 'div'
-});
+  document.registerElement('position-sticky', {
+    prototype: StickyElementPrototype,
+    extends: 'div'
+  });
+}
