@@ -1,11 +1,14 @@
 {
   "name": "position-sticky",
+  "main": "dist/position-sticky.min.js",
   "homepage": "https://github.com/1000ch/position-sticky",
   "authors": [
     "1000ch <shogo.sensui@gmail.com>"
   ],
   "description": "Emulation of position:sticky; using JavaScript",
-  "main": "dist/position-sticky.min.js",
+  "keywords": [
+    "web-components"
+  ],
   "license": "MIT",
   "ignore": [
     "**/.*",
