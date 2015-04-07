@@ -24,6 +24,4 @@ If you want to use this as Web Components Extension, set `is="position-sticky"` 
 
 ## License
 
-MIT: http://1000ch.mit-license.org/
-
-Project structure is borrowed from [ahomu/es6-kameita](http://github.com/ahomu/es6-kameita).
+MIT: http://1000ch.mit-license.org
