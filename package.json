@@ -1,7 +1,7 @@
 {
   "name": "position-sticky",
-  "version": "0.1.0",
-  "description": "Emulation of position:sticky using JavaScript",
+  "version": "0.1.3",
+  "description": "Emulation of position: sticky; using JavaScript",
   "directories": {
     "test": "test"
   },

@@ -1,6 +1,6 @@
 # position-sticky
 
-Emulation of `position:sticky;` using JavaScript.
+Emulation of `position: sticky;` using JavaScript.
 
 ## Usage
 
