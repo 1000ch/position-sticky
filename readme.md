@@ -1,4 +1,4 @@
-# position-sticky
+# `position-sticky`
 
 Emulation of `position: sticky;` using JavaScript.
 

@@ -80,5 +80,10 @@
       </footer>
     </div>
     <script src="dist/position-sticky.js"></script>
+    <script>
+      if (!document.registerElement) {
+        PositionSticky(document.querySelector('.sticky'));
+      }
+    </script>
   </body>
 </html>
