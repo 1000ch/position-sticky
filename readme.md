@@ -1,6 +1,6 @@
 # `position-sticky`
 
-Emulation of `position: sticky;` using JavaScript.
+Polyfill for `position: sticky;`.
 
 ## Usage
 
