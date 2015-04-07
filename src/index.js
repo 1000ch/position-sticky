@@ -8,6 +8,17 @@ require('babel/browser-polyfill');
 
 import PositionSticky from './position-sticky';
 
-export default function (selector) {
-  return new PositionSticky(selector);
+export default function (element) {
+  return new PositionSticky(element);
 }
+
+let StickyElementPrototype = Object.create(HTMLElement.prototype);
+
+StickyElementPrototype.attachedCallback = function () {
+  new PositionSticky(this);
+};
+
+document.registerElement('position-sticky', {
+  prototype: StickyElementPrototype,
+  extends: 'div'
+});
