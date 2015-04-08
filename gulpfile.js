@@ -1,7 +1,6 @@
 var gulp     = require('gulp');
 var plumber  = require('gulp-plumber');
 var rename   = require('gulp-rename');
-var sequence = require('run-sequence').use(gulp);
 var package  = require('./package.json');
 var banner   = '/*! <%= name %> - v<%= version %> */';
 
@@ -13,7 +12,7 @@ var DIR_DIST  = './dist';
 var DIR_TEMP  = './temp';
 
 var GLOB_TEST_FILES    = ['./test/**/*.js', '!./test/runner.js'];
-var GLOB_JS_SRC_FILES  = ['./src/**/*.js'];
+var GLOB_SRC_FILES  = ['./src/**/*.js'];
 var GLOB_DIST_FILES    = ['./dist/**/*'];
 
 function bufferedBrowserify(standaloneName) {
@@ -58,13 +57,13 @@ function bumpCommit(type) {
     .pipe(onlyPackageJson);
 }
 
-gulp.task('jshint', function() {
-  var jshint = require('gulp-jshint');
+gulp.task('lint', function() {
+  var eslint   = require('gulp-eslint');
 
-  return gulp.src(GLOB_JS_SRC_FILES)
-    .pipe(jshint('./.jshintrc'))
-    .pipe(jshint.reporter('jshint-stylish'))
-    .pipe(jshint.reporter('fail'));
+  return gulp.src(GLOB_SRC_FILES)
+    .pipe(eslint({useEslintrc: true}))
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
 });
 
 gulp.task('tag', function() {
@@ -78,8 +77,8 @@ gulp.task('pretest', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(GLOB_JS_SRC_FILES, function() {
-    gulp.start('jshint', 'build');
+  gulp.watch(GLOB_SRC_FILES, function() {
+    gulp.start('lint', 'build');
   });
 });
 
