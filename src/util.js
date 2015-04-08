@@ -7,5 +7,4 @@ export default {
       element.style[key] = properties[key];
     });
   }
-
 };

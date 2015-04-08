@@ -1,51 +1,51 @@
 'use strict';
 
 export default class Rectangle {
-  
+
   constructor(element) {
-    this._top = element.offsetTop;
-    this._left = element.offsetLeft;
-    this._width = element.clientWidth;
-    this._height = element.clientHeight;
+    this.offsetTop = element.offsetTop;
+    this.offsetLeft = element.offsetLeft;
+    this.clientWidth = element.clientWidth;
+    this.clientHeight = element.clientHeight;
   }
-  
+
   get top() {
-    return this._top;
+    return this.offsetTop;
   }
 
   set top(value) {
-    this._top = value;
+    this.offsetTop = value;
   }
-  
+
   get left() {
-    return this._left;
+    return this.offsetLeft;
   }
 
   set left(value) {
-    this._left = value;
+    this.offsetLeft = value;
   }
-  
+
   get right() {
-    return this._left + this._width;
+    return this.offsetLeft + this.clientWidth;
   }
-  
+
   get bottom() {
-    return this._top + this._height;
+    return this.offsetTop + this.clientHeight;
   }
-  
+
   get width() {
-    return this._width;
+    return this.clientWidth;
   }
 
   set width(value) {
-    this._width = value;
+    this.clientWidth = value;
   }
-  
+
   get height() {
-    return this._height;
+    return this.clientHeight;
   }
 
   set height(value) {
-    this._height = value;
+    this.clientHeight = value;
   }
 }

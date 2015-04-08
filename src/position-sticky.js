@@ -17,8 +17,8 @@ export default class PositionSticky {
 
     this.original = {
       position: element.style.position,
-      top: element.style.top.replace('px', '') - 0,
-      bottom: element.style.bottom.replace('px', '') - 0,
+      top: Number(element.style.top.replace('px', '')),
+      bottom: Number(element.style.bottom.replace('px', '')),
       width: element.style.width,
       height: element.style.height
     };
@@ -27,7 +27,7 @@ export default class PositionSticky {
     window.addEventListener('resize', this.onResize.bind(this));
   }
 
-  onScroll(e) {
+  onScroll() {
 
     let sticky = new Rectangle(this.sticky);
     let parent = new Rectangle(this.parent);
@@ -59,7 +59,7 @@ export default class PositionSticky {
     }
   }
 
-  onResize(e) {
+  onResize() {
     this.onScroll.call(this);
   }
 }
