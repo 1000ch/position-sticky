@@ -17,8 +17,8 @@ export default class PositionSticky {
 
     this.original = {
       position: element.style.position,
-      top: Number(element.style.top.replace('px', '')),
-      bottom: Number(element.style.bottom.replace('px', '')),
+      top: Number(element.style.top.replace(/[^0-9]/g, '')),
+      bottom: Number(element.style.bottom.replace(/[^0-9]/g, '')),
       width: element.style.width,
       height: element.style.height
     };
