@@ -22,12 +22,31 @@ export default class PositionSticky {
       width: element.style.width,
       height: element.style.height
     };
-
-    window.addEventListener('scroll', this.onScroll.bind(this));
-    window.addEventListener('resize', this.onResize.bind(this));
   }
 
-  onScroll() {
+  attach() {
+
+    this.onscroll = this.scrollHandler.bind(this);
+    this.onresize = this.resizeHandler.bind(this);
+
+    window.addEventListener('scroll', this.onscroll);
+    window.addEventListener('resize', this.onresize);
+  }
+
+  detach() {
+
+    if (this.onscroll) {
+      window.removeEventListener('scroll', this.onscroll);
+      this.onscroll = null;
+    }
+
+    if (this.onresize) {
+      window.removeEventListener('resize', this.onresize);
+      this.onresize = null;
+    }
+  }
+
+  scrollHandler() {
 
     let sticky = new Rectangle(this.sticky);
     let parent = new Rectangle(this.parent);
@@ -59,7 +78,7 @@ export default class PositionSticky {
     }
   }
 
-  onResize() {
+  resizeHandler() {
     this.onScroll.call(this);
   }
 }

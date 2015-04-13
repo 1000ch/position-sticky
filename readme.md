@@ -10,13 +10,20 @@ Load `position-sticky.min.js`.
 <script src="dist/position-sticky.js"></script>
 ```
 
-Call `PositionSticky()` with element as argument.
+Create `PositionSticky()` instance and call `attach()`.
 
-```html
-<script>PositionSticky(document.querySelector('.sticky'));</script>
+```javascript
+var positionSticky = PositionSticky(document.querySelector('.sticky'));
+positionSticky.attach();
 ```
 
-If you want to use this as Web Components Extension, set `is="position-sticky"` to `<div>`.
+If you want to stop, call `detach()` of instance.
+
+```javascript
+positionSticky.detach();
+```
+
+To use as Web Components Extension, set `is="position-sticky"` to `<div>`.
 
 ```html
 <div is="position-sticky"></div>
